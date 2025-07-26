@@ -4,6 +4,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+  "github.com/gorilla/mux"
 )
 
 func main(){
@@ -14,9 +15,11 @@ func main(){
 }
 
 func initializeAPIServer() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	    router := mux.NewRouter()
+
+	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Hello, you've reached the API server!")
 	})
 
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8080", router)
 }
